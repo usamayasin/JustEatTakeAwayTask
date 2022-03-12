@@ -47,9 +47,9 @@ class MainViewModel @Inject constructor(
     fun searchRestaurantByName(searchInput: CharSequence) {
         if (searchInput.trim().isNotEmpty()) {
             _restaurantList.value?.let {
-                val result = fetchRestaurantUsecase.searchForRestaurantByName(searchInput, it)
+                val result = fetchRestaurantUsecase.searchByName(searchInput, it)
                 if (result.isNullOrEmpty().not()) {
-                    _restaurantList.postValue(result!!)
+                    _restaurantList.postValue(result)
                 } else {
                     onResponseComplete(DataState.CustomMessages.EmptyData)
                 }

@@ -53,7 +53,7 @@ class FetchRestaurantUsecase @Inject constructor(
         NAME -> compareByDescending { it.name }
     }
 
-    fun searchForRestaurantByName(searchInput: CharSequence, restaurantsList: List<Restaurant>): List<Restaurant> {
+    fun searchByName(searchInput: CharSequence, restaurantsList: List<Restaurant>): List<Restaurant> {
         return restaurantsList.filter { item ->
             item.name!!.contains(searchInput, ignoreCase = true)
         }

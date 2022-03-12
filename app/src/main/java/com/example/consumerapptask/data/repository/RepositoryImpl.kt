@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 /**
- * This is an implementation of [Repository] to handle communication with [ApiService] server.
+ * This is an implementation of [Repository] to handle communication with [ApiService].
  */
 class RepositoryImpl @Inject constructor(
     private val apiService: ApiService,

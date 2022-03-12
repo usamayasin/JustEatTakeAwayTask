@@ -8,7 +8,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 /**
- * This is an implementation of [Repository] to handle communication with [ApiService] server.
+ * This is an implementation of [ApiService] to get data from local/server.
  */
 
 class ApiServiceImpl @Inject constructor(

@@ -58,7 +58,7 @@ open class BaseActivity : AppCompatActivity() {
                 getString(R.string.forbidden)
             }
             else -> {
-                "Something went Wrong."
+                getString(R.string.message_something_went_wrong_str)
             }
         }
 

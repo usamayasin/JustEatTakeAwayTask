@@ -8,6 +8,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * The Dagger Module for providing application context.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {

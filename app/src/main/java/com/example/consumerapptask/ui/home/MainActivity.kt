@@ -17,8 +17,6 @@ class MainActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
-    private var restaurants: MutableList<Restaurant> =
-        ArrayList<Restaurant>()
 
     private lateinit var restaurantsAdapter: RestaurantsAdapter
 
