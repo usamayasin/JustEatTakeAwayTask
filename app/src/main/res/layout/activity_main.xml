@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.example.consumerapptask.data.model.SortingOption" />
+
+        <variable
+            name="viewModel"
+            type="com.example.consumerapptask.ui.home.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.home.MainActivity">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputFieldLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_2x"
+            android:hint="@string/search_by_name"
+            app:layout_constraintBottom_toTopOf="@id/cg_filters"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSearchField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:onTextChanged="@{(text, start, before, count) -> viewModel.searchRestaurantByName(text)}"
+                app:editorActionSortOption="@{SortingOption.NAME}"
+                app:editorActionVM="@{viewModel}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_filters"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_2x"
+            android:layout_marginEnd="@dimen/margin_2x"
+            app:layout_constraintBottom_toTopOf="@id/tvRestaurantlbl"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inputFieldLayout"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/c_best_match"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:onClick="@{ () -> viewModel.onSortingOptionChecked(SortingOption.BEST_MATCH) }"
+                android:text="@string/best_match" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/c_min_cost"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{ () -> viewModel.onSortingOptionChecked(SortingOption.MIN_COST) }"
+                android:text="@string/min_cost" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/c_distance"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{ () -> viewModel.onSortingOptionChecked(SortingOption.DISTANCE) }"
+                android:text="@string/distance" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/c_popularity"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{ () -> viewModel.onSortingOptionChecked(SortingOption.POPULARITY) }"
+                android:text="@string/popularity" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/c_rating_average"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{ () -> viewModel.onSortingOptionChecked(SortingOption.RATING_AVERAGE) }"
+                android:text="@string/rating_average" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/c_newest"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{ () -> viewModel.onSortingOptionChecked(SortingOption.NEWEST) }"
+                android:text="@string/newest" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/c_delivery_costs"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{ () -> viewModel.onSortingOptionChecked(SortingOption.DELIVERY_COSTS) }"
+                android:text="@string/delivery_costs" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/c_avg_product_price"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{ () -> viewModel.onSortingOptionChecked(SortingOption.AVERAGE_PRODUCT_PRICE) }"
+                android:text="@string/average_product_price" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRestaurantlbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_3x"
+            android:layout_marginTop="@dimen/margin_3x"
+            android:text="@string/restaurants"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/text_size_3x"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/rvRestaurants"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cg_filters" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRestaurants"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRestaurantlbl"
+            tools:listitem="@layout/item_restaurant" />
+
+        <ProgressBar
+            android:id="@+id/ivConversionIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="@{viewModel.loading?View.VISIBLE: View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

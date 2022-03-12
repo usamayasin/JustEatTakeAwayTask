@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.consumerapptask.ui.home.MainViewModel" />
+
+        <variable
+            name="data"
+            type="com.example.consumerapptask.data.model.Restaurant" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_1x"
+        android:paddingTop="@dimen/padding_1x"
+        android:paddingEnd="@dimen/padding_1x">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_0x"
+            android:background="?android:selectableItemBackground"
+            app:cardCornerRadius="@dimen/radius_1x"
+            app:cardElevation="@dimen/margin_0x"
+            app:contentPadding="@dimen/padding_1x">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvRestaurantName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{data.name}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_2x"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/tvStatus"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{data.status}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_1x"
+                    app:layout_constraintBottom_toTopOf="@id/tvSelectedSort"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvRestaurantName" />
+
+                <TextView
+                    android:id="@+id/tvSelectedSort"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@{data.selectedSort}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_1x"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvStatus" />
+
+                <TextView
+                    android:id="@+id/tvSelectedSortValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    app:sortOption="@{data.selectedSort}"
+                    app:sortValue="@{data.sortingValues}"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_1x"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSelectedSort" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+</layout>
+
