@@ -12,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
- * The Dagger Module for providing repository instances.
+ * The Dagger Module for providing repository and apiservice instances.
  */
 @Module
 @InstallIn(SingletonComponent::class)

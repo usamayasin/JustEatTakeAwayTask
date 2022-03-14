@@ -2,9 +2,7 @@ package com.example.consumerapptask.data.service
 
 import android.content.Context
 import com.example.consumerapptask.data.model.AllRestaurants
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.io.IOException
+import com.example.consumerapptask.utils.getAllRestaurantsFromJson
 import javax.inject.Inject
 
 /**
@@ -16,18 +14,5 @@ class ApiServiceImpl @Inject constructor(
 ) : ApiService {
 
     override suspend fun getAllRestaurants(): AllRestaurants = getAllRestaurantsFromJson(context)
-
-    private fun getAllRestaurantsFromJson(context: Context): AllRestaurants {
-        lateinit var jsonString: String
-        try {
-            jsonString = context.assets.open("sample_data.json")
-                .bufferedReader()
-                .use { it.readText() }
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-        }
-        val listRestaurant = object : TypeToken<AllRestaurants>() {}.type
-        return Gson().fromJson(jsonString, listRestaurant)
-    }
 
 }

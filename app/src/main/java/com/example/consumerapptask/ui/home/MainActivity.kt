@@ -5,11 +5,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.consumerapptask.adapter.RestaurantsAdapter
 import com.example.consumerapptask.base.BaseActivity
-import com.example.consumerapptask.data.model.Restaurant
 import com.example.consumerapptask.databinding.ActivityMainBinding
 import com.example.consumerapptask.utils.flowWithLifecycle
 import com.example.consumerapptask.utils.getQueryTextChangeStateFlow
@@ -74,7 +72,7 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        val restaurantObserver = Observer<List<Restaurant>> { response ->
+        viewModel.restaurantsLiveData.observe(this) { response ->
             // Update the UI, in this case
             response?.let {
                 if (response.isNotEmpty()) {
@@ -82,7 +80,6 @@ class MainActivity : BaseActivity() {
                 }
             }
         }
-        viewModel.restaurantsLiveData.observe(this, restaurantObserver)
     }
 
 }

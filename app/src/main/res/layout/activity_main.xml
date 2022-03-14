@@ -24,12 +24,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_2x"
-            android:hint="@string/search_by_name"
+            android:iconifiedByDefault="false"
+            app:iconifiedByDefault="false"
             app:layout_constraintBottom_toTopOf="@id/cg_filters"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            />
+            app:queryHint="@string/search_by_name" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/cg_filters"

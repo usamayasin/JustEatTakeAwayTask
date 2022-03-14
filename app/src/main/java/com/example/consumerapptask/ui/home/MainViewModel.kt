@@ -51,7 +51,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun searchRestaurantByName(searchInput: String): Flow<List<Restaurant>> = flow {
+    private fun searchRestaurantByName(searchInput: String): Flow<List<Restaurant>> = flow {
         if (searchInput.trim().isNotEmpty()) {
             _restaurantList.value?.let {
                 val result = fetchRestaurantUsecase.searchByName(searchInput, it)
