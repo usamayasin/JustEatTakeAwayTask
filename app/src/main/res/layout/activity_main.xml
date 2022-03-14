@@ -19,9 +19,8 @@
         android:layout_height="match_parent"
         tools:context=".ui.home.MainActivity">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputFieldLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_2x"
@@ -29,21 +28,8 @@
             app:layout_constraintBottom_toTopOf="@id/cg_filters"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSearchField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:gravity="center"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:onTextChanged="@{(text, start, before, count) -> viewModel.searchRestaurantByName(text)}"
-                app:editorActionSortOption="@{SortingOption.NAME}"
-                app:editorActionVM="@{viewModel}" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/cg_filters"
@@ -54,7 +40,7 @@
             app:layout_constraintBottom_toTopOf="@id/tvRestaurantlbl"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputFieldLayout"
+            app:layout_constraintTop_toBottomOf="@id/searchView"
             app:selectionRequired="true"
             app:singleSelection="true">
 

@@ -4,12 +4,18 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.consumerapptask.adapter.RestaurantsAdapter
 import com.example.consumerapptask.base.BaseActivity
 import com.example.consumerapptask.data.model.Restaurant
 import com.example.consumerapptask.databinding.ActivityMainBinding
+import com.example.consumerapptask.utils.flowWithLifecycle
+import com.example.consumerapptask.utils.getQueryTextChangeStateFlow
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -42,6 +48,31 @@ class MainActivity : BaseActivity() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun initObservations() {
+
+        lifecycleScope.launch {
+            launch {
+                viewModel.restaurantListStateFlow.flowWithLifecycle(
+                    lifecycle,
+                    Lifecycle.State.STARTED
+                )
+                    .collect {
+                        restaurantsAdapter.differ.submitList(it)
+                    }
+            }
+
+            launch {
+                binding.searchView.getQueryTextChangeStateFlow().collect {
+                    viewModel.query.emit(it)
+                }
+            }
+
+            launch {
+                viewModel.responseMessage.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                    .collect {
+                        showSnackbar(it,binding.root)
+                    }
+            }
+        }
 
         val restaurantObserver = Observer<List<Restaurant>> { response ->
             // Update the UI, in this case

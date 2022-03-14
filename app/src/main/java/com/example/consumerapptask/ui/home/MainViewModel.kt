@@ -12,7 +12,7 @@ import com.example.consumerapptask.data.model.SortingOption
 import com.example.consumerapptask.data.usecase.FetchRestaurantUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -27,6 +27,13 @@ class MainViewModel @Inject constructor(
     var restaurantsLiveData: LiveData<List<Restaurant>> = _restaurantList
 
     private var currentSorting = fetchRestaurantUsecase.getComparatorBy(SortingOption.BEST_MATCH)
+
+    var query = MutableStateFlow("")
+    var restaurantListStateFlow = query.debounce(100)
+        .distinctUntilChanged()
+        .flatMapLatest {
+            searchRestaurantByName(it)
+        }.flowOn(Dispatchers.Default)
 
     init {
         fetchRestaurants()
@@ -44,12 +51,12 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun searchRestaurantByName(searchInput: CharSequence) {
+    fun searchRestaurantByName(searchInput: String): Flow<List<Restaurant>> = flow {
         if (searchInput.trim().isNotEmpty()) {
             _restaurantList.value?.let {
                 val result = fetchRestaurantUsecase.searchByName(searchInput, it)
                 if (result.isNullOrEmpty().not()) {
-                    _restaurantList.postValue(result)
+                    emit(result)
                 } else {
                     onResponseComplete(DataState.CustomMessages.EmptyData)
                 }
